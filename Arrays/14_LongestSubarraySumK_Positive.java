@@ -78,3 +78,56 @@ public class Main {
     }
 }
 
+
+// adding another method for the question
+
+
+
+/**
+ * ✅ Problem: Longest Subarray with Sum K (Positives and Negatives Allowed)
+ * 📝 Link: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
+ * 📅 Date: 2025-06-23
+ * 👨‍💻 Author: Aditya Kumar
+ * 🧠 Approach: Prefix Sum + HashMap to track first occurrence of each sum.
+ * ⏱️ Time Complexity: O(n)
+ * 📦 Space Complexity: O(n)
+ */
+
+import java.util.*;
+
+public class LongestSubarraySumK_PositiveNegative {
+    public static int getLongestSubarray(int[] a, long k) {
+        int n = a.length;
+        Map<Long, Integer> preSumMap = new HashMap<>();
+        long sum = 0;
+        int maxLen = 0;
+
+        for (int i = 0; i < n; i++) {
+            sum += a[i];
+
+            if (sum == k) {
+                maxLen = Math.max(maxLen, i + 1);
+            }
+
+            long rem = sum - k;
+            if (preSumMap.containsKey(rem)) {
+                int len = i - preSumMap.get(rem);
+                maxLen = Math.max(maxLen, len);
+            }
+
+            if (!preSumMap.containsKey(sum)) {
+                preSumMap.put(sum, i);
+            }
+        }
+
+        return maxLen;
+    }
+
+    public static void main(String[] args) {
+        int[] a = {2, 3, 5, 1, 9};
+        long k = 10;
+        int len = getLongestSubarray(a, k);
+        System.out.println("The length of the longest subarray is: " + len);
+    }
+}
+
