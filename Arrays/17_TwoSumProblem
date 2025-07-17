@@ -36,3 +36,46 @@ public class TwoSumBruteForce {
         System.out.println("Indices of elements that sum to target: [" + ans[0] + ", " + ans[1] + "]");
     }
 }
+
+
+//here's the optimal approach to solve the question
+
+/**
+ * ✅ Problem: Two Sum Problem (Optimized)
+ * 📝 Link: https://takeuforward.org/data-structure/two-sum-problem/
+ * 📅 Date: 2025-07-17
+ * 👨‍💻 Author: Aditya Kumar
+ * 🧠 Approach: Use a HashMap to store the complement of each element while traversing the array.
+ * ⏱️ Time Complexity: O(n)
+ * 📦 Space Complexity: O(n)
+ */
+
+import java.util.*;
+
+public class TwoSumOptimized {
+    public static int[] twoSum(int n, int[] arr, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            int complement = target - arr[i];
+
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+
+            map.put(arr[i], i);
+        }
+
+        return new int[]{-1, -1};
+    }
+
+    public static void main(String[] args) {
+        int n = 5;
+        int[] arr = {2, 6, 5, 8, 11};
+        int target = 14;
+
+        int[] ans = twoSum(n, arr, target);
+
+        System.out.println("Indices of elements that sum to target: [" + ans[0] + ", " + ans[1] + "]");
+    }
+}
